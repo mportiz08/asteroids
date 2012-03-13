@@ -5,7 +5,16 @@ local space = {}
 
 space.world = love.physics.newWorld(0, 0, settings.width, settings.height)
 space.stars = {}
-space.starSpeed = 15
+space.starSpeedSlow = 15
+space.starSpeedFast = space.starSpeedSlow * 2
+
+function space.getStarSpeed(i)
+  if i < (settings.numStars / 2) then
+    return space.starSpeedSlow
+  else
+    return space.starSpeedFast
+  end
+end
 
 function space.load()
   space.world:setGravity(settings.gravity.x, settings.gravity.y)
@@ -36,6 +45,7 @@ function space.loadStars()
     star = {}
     star.width = 2
     star.height = 2
+    star.speed = space.getStarSpeed(i)
     star.x1 = math.random(1, settings.width - star.width)
     star.y1 = math.random(1, settings.height - star.height)
     star.x2 = star.x1 + 2
@@ -49,15 +59,19 @@ function space.loadStars()
 end
 
 function space.updateStars(dt)
-  off = space.starSpeed * dt
   for i = 1, settings.numStars do
-    space.stars[i].x1 = space.stars[i].x1 + off
-    space.stars[i].x2 = space.stars[i].x2 + off
-    space.stars[i].x3 = space.stars[i].x3 + off
-    space.stars[i].x4 = space.stars[i].x4 + off
-    if util.quadOutOfBounds(space.stars[i]) then
-      util.wrapQuadHorizontal(space.stars[i])
-    end
+    space.updateStar(space.stars[i], dt)
+  end
+end
+
+function space.updateStar(star, dt)
+  offset  = star.speed * dt
+  star.x1 = star.x1 + offset
+  star.x2 = star.x2 + offset
+  star.x3 = star.x3 + offset
+  star.x4 = star.x3 + offset
+  if util.quadOutOfBounds(star) then
+    util.wrapQuadHorizontal(star)
   end
 end
 
