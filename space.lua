@@ -24,6 +24,7 @@ function space.load()
 end
 
 function space.update(dt)
+  space.world:update(dt)
   space.updateStars(dt)
 end
 
