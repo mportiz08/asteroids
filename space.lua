@@ -7,6 +7,7 @@ space.world = love.physics.newWorld(0, 0, settings.width, settings.height)
 space.stars = {}
 space.starSpeedSlow = 15
 space.starSpeedFast = space.starSpeedSlow * 2
+space.starColor = {r = 255, g = 255, b = 255}
 
 function space.getStarSpeed(i)
   if i < (settings.numStars / 2) then
@@ -77,6 +78,7 @@ function space.updateStar(star, dt)
 end
 
 function space.drawStar(star)
+  love.graphics.setColor(space.starColor.r, space.starColor.g, space.starColor.b)
   love.graphics.quad('fill', star.x1, star.y1, star.x2, star.y2, star.x3, star.y3, star.x4, star.y4)
 end
 
