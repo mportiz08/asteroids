@@ -50,12 +50,12 @@ function space.loadStars()
     star.speed = space.getStarSpeed(i)
     star.x1 = math.random(1, settings.width - star.width)
     star.y1 = math.random(1, settings.height - star.height)
-    star.x2 = star.x1 + 2
+    star.x2 = star.x1 + star.width
     star.y2 = star.y1
-    star.x3 = star.x1 + 2
-    star.y3 = star.y1 + 2
+    star.x3 = star.x1 + star.width
+    star.y3 = star.y1 + star.height
     star.x4 = star.x1
-    star.y4 = star.y1 + 2
+    star.y4 = star.y1 + star.height
     space.stars[i] = star
   end
 end

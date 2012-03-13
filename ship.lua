@@ -10,7 +10,7 @@ ship.torque             = 100
 ship.mass               = 15
 ship.inertia            = 30
 ship.maxAngularVelocity = 5
-ship.maxLinearVelocity  = 50
+ship.maxLinearVelocity  = 75
 ship.linearDamping      = 1
 ship.angularDamping     = 1
 ship.color              = {r = 255, g = 255, b = 255}
