@@ -2,8 +2,8 @@ local settings = {}
 
 settings = {}
 
-settings.width    = 1024
-settings.height   = 600
+settings.width    = 1280
+settings.height   = 720
 settings.gravity  = { x = 0, y = 0 }
 settings.meter    = 64
 settings.numStars = 20
