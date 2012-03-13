@@ -40,6 +40,16 @@ function ship.load()
 end
 
 function ship.update(dt)
+  ship.handleInput()
+  ship.wrap()
+end
+
+function ship.draw()
+  love.graphics.setColor(ship.color.r, ship.color.g, ship.color.b)
+  love.graphics.polygon('line', ship.shape:getPoints())
+end
+
+function ship.handleInput()
   angle = ship.body:getAngle()
   if love.keyboard.isDown('left') then
     ship.body:applyTorque(0 - ship.torque)
@@ -52,9 +62,20 @@ function ship.update(dt)
   end
 end
 
-function ship.draw()
-  love.graphics.setColor(ship.color.r, ship.color.g, ship.color.b)
-  love.graphics.polygon('line', ship.shape:getPoints())
+function ship.wrap()
+  x, y = ship.body:getPosition()
+  if util.offScreenLeft(x) then
+    ship.body:setPosition(settings.width, y)
+  end
+  if util.offScreenRight(x) then
+    ship.body:setPosition(0, y)
+  end
+  if util.offScreenTop(y) then
+    ship.body:setPosition(x, settings.height)
+  end
+  if util.offScreenBottom(y) then
+    ship.body:setPosition(x, 0)
+  end
 end
 
 return ship

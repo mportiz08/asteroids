@@ -13,6 +13,22 @@ function util.pointOutOfBounds(x, y)
   return (x < 0 or x > settings.width) or (y < 0 or y > settings.height)
 end
 
+function util.offScreenLeft(x)
+  return x < 0
+end
+
+function util.offScreenRight(x)
+  return x > settings.width
+end
+
+function util.offScreenTop(y)
+  return y < 0
+end
+
+function util.offScreenBottom(y)
+  return y > settings.height
+end
+
 function util.wrapQuadHorizontal(quad)
   if (quad.x1 < 0) or (quad.x2 < 0) or (quad.x3 < 0) or (quad.x4 < 0) then
     quad.x1 = settings.width
