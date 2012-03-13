@@ -7,6 +7,7 @@ end
 
 function love.update(dt)
   space.world:update(dt)
+  space.update(dt)
 end
 
 function love.draw()

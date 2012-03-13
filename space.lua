@@ -1,15 +1,21 @@
 settings = require('settings')
+util     = require('util')
 
 local space = {}
 
 space.world = love.physics.newWorld(0, 0, settings.width, settings.height)
 space.stars = {}
+space.starSpeed = 15
 
 function space.load()
   space.world:setGravity(settings.gravity.x, settings.gravity.y)
   space.world:setMeter(settings.meter)
   space.loadBackground()
   space.loadStars()
+end
+
+function space.update(dt)
+  space.updateStars(dt)
 end
 
 function space.draw()
@@ -39,6 +45,19 @@ function space.loadStars()
     star.x4 = star.x1
     star.y4 = star.y1 + 2
     space.stars[i] = star
+  end
+end
+
+function space.updateStars(dt)
+  off = space.starSpeed * dt
+  for i = 1, settings.numStars do
+    space.stars[i].x1 = space.stars[i].x1 + off
+    space.stars[i].x2 = space.stars[i].x2 + off
+    space.stars[i].x3 = space.stars[i].x3 + off
+    space.stars[i].x4 = space.stars[i].x4 + off
+    if util.quadOutOfBounds(space.stars[i]) then
+      util.wrapQuadHorizontal(space.stars[i])
+    end
   end
 end
 
